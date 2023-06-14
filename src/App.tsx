@@ -1,4 +1,4 @@
-import { BrowserRouter, HashRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import LoginPage from './components/pages/LoginPage'
 import MainPage from './components/pages/MainPage'
 import { Provider } from 'react-redux'
