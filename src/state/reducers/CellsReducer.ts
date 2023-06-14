@@ -50,12 +50,10 @@ const cellsSlice = createSlice({
             state.cells = state.cells.filter(cell => cell.id !== id && cell.id !== old_cell_id)
             let cell: Cell_T = {id, item_id}
             state.cells.push(cell)
-            console.log(state.cells)
         },
         uploadSave(state, action: PayloadAction<initialState_T>) {
             state.cells = action.payload.cells
             state.items = action.payload.items
-            console.log(action.payload)
         }
     }
 })

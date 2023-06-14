@@ -4,18 +4,14 @@ import DragDrop from '../../features/DragDrop'
 import { saveAs } from "file-saver";
 import { useAppDispatch, useAppSelector } from '../../../state/hooks';
 import cellsSlice from '../../../state/reducers/CellsReducer';
-import { useEffect } from 'react';
+
 
 const MainPage = () => {
 
     let state = useAppSelector(state => state.cellsReducer)
-    
-    let dispatch = useAppDispatch()
-    let {uploadSave} = cellsSlice.actions
 
-    useEffect(() => {
-        console.log(state)
-    }, [state.cells])
+    let dispatch = useAppDispatch()
+    let { uploadSave } = cellsSlice.actions
 
     const exportFile = () => {
         let stateAsString = JSON.stringify(state)
@@ -26,9 +22,8 @@ const MainPage = () => {
     const showFile = async (e: any) => {
         e.preventDefault()
         const reader = new FileReader()
-        reader.onload = async (e) => {
+        reader.onload = async (e: any) => {
             const data = JSON.parse(e.target.result)
-            console.log(data)
             dispatch(uploadSave(data))
         };
         reader.readAsText(e.target.files[0])
@@ -36,10 +31,18 @@ const MainPage = () => {
 
     return (
         <DndProvider backend={HTML5Backend}>
-            <button onClick={exportFile}>Сохранить и экспортировать</button>
-            <input type='file'
-                onChange={(e) => showFile(e)}
-                placeholder='Загрузите сохраненный макет' />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <button onClick={exportFile}>Сохранить и экспортировать</button>
+                <div>
+                    Загрузите сохранение
+                    <input type='file'
+                        onChange={(e) => showFile(e)}
+                        placeholder='Загрузите сохраненный макет'
+                    />
+                </div>
+
+            </div>
+
             <DragDrop />
         </DndProvider>
     )

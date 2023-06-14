@@ -16,18 +16,21 @@ const DragDrop = () => {
 
   return (
     <>
-      <div style={{ border: 'solid 1px black', display: 'flex', flexDirection: 'column', margin: '10px' }}>
-        <h1>Выберите столик с числом мест и перенесите на карту</h1>
-        <div style={{display: 'flex'}}>
-          {items.map(item => {
-            return <Table persons_amount={item.persons_amount} item_id={item.id} />
-          })}
-        </div>
+      <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', width: '100%'}}>
+        <div style={{ border: 'solid 1px black', display: 'flex', flexDirection: 'column', margin: '10px' }}>
+          <h1>Выберите столик с числом мест и перенесите на карту</h1>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            {items.map(item => {
+              return <Table persons_amount={item.persons_amount} item_id={item.id} />
+            })}
+          </div>
 
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+          {rows_IDs.map(row_id => <Row key={row_id} row_id={row_id} />)}
+        </div>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        {rows_IDs.map(row_id => <Row key={row_id} row_id={row_id} />)}
-      </div>
+
     </>
   )
 }
