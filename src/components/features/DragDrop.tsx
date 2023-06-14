@@ -1,21 +1,12 @@
-import React, { useState } from 'react'
-import Picture from './Picture'
-import { useDrop } from 'react-dnd'
-import Cell from '../entities/Cell'
+import { useAppSelector } from '../../state/hooks'
+import Table from './Table'
 import Row from './Row'
 
-const ElementsList = [
-  {
-    id: '1',
-    url: 'https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png?202201030840'
-  },
-  {
-    id: '2',
-    url: 'https://media.istockphoto.com/id/184276818/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%BA%D1%80%D0%B0%D1%81%D0%BD%D0%BE%D0%B5-%D1%8F%D0%B1%D0%BB%D0%BE%D0%BA%D0%BE.jpg?s=612x612&w=0&k=20&c=HDH3wLEAvc7soT85pAcS4JOQu5KJ8xM9JOilVe1zFLI='
-  }
-]
+
 
 const DragDrop = () => {
+
+  let { items } = useAppSelector(state => state.cellsReducer)
 
   let rows_IDs = []
 
@@ -25,15 +16,18 @@ const DragDrop = () => {
 
   return (
     <>
-      <div className='pictures'>
-        {ElementsList.map(element => {
-          return <Picture url={element.url} id={element.id} />
-        })}
-      </div>
-      <div style={{display: 'flex', flexDirection: 'column'}}>
-        {rows_IDs.map(el => <Row row_id={el} />)}
-      </div>
+      <div style={{ border: 'solid 1px black', display: 'flex', flexDirection: 'column', margin: '10px' }}>
+        <h1>Выберите столик с числом мест и перенесите на карту</h1>
+        <div style={{display: 'flex'}}>
+          {items.map(item => {
+            return <Table persons_amount={item.persons_amount} item_id={item.id} />
+          })}
+        </div>
 
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        {rows_IDs.map(row_id => <Row key={row_id} row_id={row_id} />)}
+      </div>
     </>
   )
 }
